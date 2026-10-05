@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../db.php';
 
 // 1. URLのパラメータから id を取得する（なければ 0）
