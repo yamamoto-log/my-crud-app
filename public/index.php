@@ -1,9 +1,40 @@
 <?php
+session_start();
+
+
+
+// まだトークンが作られていなければ、ランダムな安全な合言葉を作る
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // データベース接続ファイル（db.php）を読み込む
 require_once __DIR__ . '/../db.php';
 
 // 1. POST通信（フォームが送信されたとき）の処理
+
+// セッションがまだなら開始
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // CSRFトークンのチェック
+    if (empty($_POST['csrf_token'])) {
+        echo "エラーが発生しました。";
+        exit;
+    }
+
+    // トークンが一致しないとき（hash_equalsで安全に比較）
+    if (!(hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))) {
+        echo "エラーが発生しました。";
+        exit;
+    }
+
     $name = $_POST['name'] ?? '';
     $price = $_POST['price'] ?? '';
 
@@ -44,6 +75,7 @@ $items = $stmt->fetchAll();
             </div>
             <div>
                 <label>価格: <input type="number" name="price" required></label>
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <button type="submit">登録する</button>
             </div>
         </form>
