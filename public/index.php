@@ -19,19 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-    // items テーブルからすべてのデータを新しい順に取得する
-    $stmt = $pdo->query('SELECT * FROM items ORDER BY id DESC');
+// items テーブルからすべてのデータを新しい順に取得する
+$stmt = $pdo->query('SELECT * FROM items ORDER BY id DESC');
 $items = $stmt->fetchAll();
 ?>
 
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品管理アプリ</title>
 </head>
+
 <body>
     <h1>商品管理アプリ</h1>
     <fieldset>
@@ -49,20 +51,23 @@ $items = $stmt->fetchAll();
 
     <h2>商品一覧</h2>
     <table border="1">
-    <tr>
-        <th>ID</th>
-        <th>商品名</th>
-        <th>価格</th>
-        <th>登録日時</th>
-    </tr>
-    <?php foreach ($items as $item): ?>
-    <tr>
-        <td><?php echo htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td><?php echo htmlspecialchars($item['price'], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td><?php echo htmlspecialchars($item['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td><a href="edit.php?id=<?php echo $item['id']; ?>">編集</a></td>
-    </tr>
-    <?php endforeach; ?>
+        <tr>
+            <th>ID</th>
+            <th>商品名</th>
+            <th>価格</th>
+            <th>登録日時</th>
+        </tr>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($item['price'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($item['created_at'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><a href="edit.php?id=<?php echo $item['id']; ?>">編集</a>
+                    <a href="delete.php?id=<?php echo $item['id']; ?>" onclick="return confirm('本当に削除しますか？');">削除</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
 </body>
+
 </html>
