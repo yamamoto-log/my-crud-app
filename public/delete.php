@@ -1,11 +1,11 @@
 <?php
-session_start();
-require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/../inc/functions.php';
+require_once __DIR__ . '/../inc/db.php';
 
-// 1. URLから id を取得
-$id = $_GET['id'] ?? 0;
+// URLパラメータからIDを取得
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-// 2. DELETE文を使ってデータベースから該当データを削除する
+// IDが正しく渡されている場合のみ削除を実行
 if ($id) {
     $stmt = $pdo->prepare("DELETE FROM items WHERE id = ?");
     $stmt->execute([$id]);
