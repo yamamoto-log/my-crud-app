@@ -10,14 +10,15 @@ PHP（PDO）とMariaDBを使用して構築した、セキュリティ意識（�
 ## 📁 ディレクトリ構成
 ```text
 my-crud-app/
-├── .env                  # DB接続情報（Git非公開）
-├── .gitignore            # Git除外設定
-├── README.md             # このファイル
-├── db.php                # 安全なPDO接続共通パーツ
-└── public/               # Web公開ディレクトリ
-    ├── index.php         # 一覧表示・新規登録画面
-    ├── edit.php          # 編集・更新画面
-    └── delete.php        # 削除処理
+├── inc/
+│   └── db.php          # データベース接続設定・処理
+├── public/              # Web公開領域（ドキュメントルート）
+│   ├── delete.php      # 削除処理
+│   ├── edit.php        # 編集画面および更新処理
+│   └── index.php       # 一覧画面（トップページ）
+├── .env                # 環境変数（DB接続情報など）
+├── .gitignore          # Git管理除外設定
+└── README.md           # プロジェクト説明ドキュメント
 ```
 
 
