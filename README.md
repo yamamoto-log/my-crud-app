@@ -15,7 +15,9 @@ my-crud-app/
 ├── public/              # Web公開領域（ドキュメントルート）
 │   ├── delete.php      # 削除処理
 │   ├── edit.php        # 編集画面および更新処理
-│   └── index.php       # 一覧画面（トップページ）
+│   ├── error_check.php # エラーチェック
+│   ├── index.php       # 一覧画面（トップページ）
+│   └── token_check.php # トークンチェック
 ├── .env                # 環境変数（DB接続情報など）
 ├── .gitignore          # Git管理除外設定
 └── README.md           # プロジェクト説明ドキュメント
